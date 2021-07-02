@@ -1,0 +1,21 @@
+version: "2.1"
+
+volumes:
+  - mqtt
+
+services:
+  wifi-repeater:
+    build: ./wifi-repeater
+    privileged: true
+    labels:
+      io.balena.features.dbus: '1'
+
+  mqtt:
+    build: mqtt
+    ports:
+      - 1883:1883
+    volumes:
+      - mqtt:/mosquitto/data
+    depends_on:
+      - timecontroller
+    restart: always
