@@ -1,0 +1,2 @@
+PLATFORM_NAME = "platform_one"
+PLATFORM_NUMBER = 1
