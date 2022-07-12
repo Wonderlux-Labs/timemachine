@@ -1,0 +1,46 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+media_player:
+  - platform: vlc
+    name: tm_speakers
+
+binary_sensor:
+  - platform: ping
+    name: mac mini
+    host: 192.168.0.101
+    count: 2
+    scan_interval: 60
+  - platform: ping
+    name: router
+    host: 192.168.0.1
+    count: 2
+    scan_interval: 60
+
+recorder:
+  purge_keep_days: 7
+  exclude:
+    domains:
+      - automation
+      - updater
+    entities:
+      - sun.sun # Don't record sun data
+      - sensor.date
+
+shell_command:
+  tm_resting: curl http://192.168.0.101:4567/resting
+  activate_platform: curl http://192.168.0.101:4567/platform-on
+  platform_off: curl http://192.168.0.101:4567/platform-off
+  dancedance: curl http://192.168.0.101:4567/dance
+  tm_recharging: curl http://192.168.0.101:4567/recharging
+  tm_broken: curl http://192.168.0.101:4567/restarting
+  reboot: curl http://192.168.0.101:4567/reboot
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
