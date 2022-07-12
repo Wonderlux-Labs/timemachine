@@ -1,0 +1,1080 @@
+- id: '1657397913825'
+  alias: Platform Four Occupied
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.platform_4_voltage
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    below: '2.6'
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_four_occupied
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.platform_four_occupied
+  mode: single
+- id: '1657398180243'
+  alias: Platform Four Unoccupied
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.platform_4_voltage
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    above: '2.9'
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_four_occupied
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.platform_four_occupied
+  mode: single
+- id: '1657398331202'
+  alias: Platform Four Toggle On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_four_occupied
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: timer.recharging
+    state: idle
+  action:
+  - service: script.platform_four_occupied
+    data: {}
+  mode: single
+- id: '1657398378429'
+  alias: Platform Four Toggle Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_four_occupied
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.dance_party_activated
+    state: 'off'
+  action:
+  - service: script.platform_four_unoccupied
+    data: {}
+  mode: single
+- id: '2657397913825'
+  alias: Platform One Occupied
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.platform_1_voltage
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    below: '2.6'
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_one_occupied
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.platform_one_occupied
+  mode: single
+- id: '2657398180243'
+  alias: Platform One Unoccupied
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.platform_1_voltage
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    above: '2.9'
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_one_occupied
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.platform_one_occupied
+  mode: single
+- id: '2657398331202'
+  alias: Platform One Toggle On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_one_occupied
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: timer.recharging
+    state: idle
+  action:
+  - service: script.platform_one_occupied
+    data: {}
+  mode: single
+- id: '2657398378429'
+  alias: Platform One Toggle Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_one_occupied
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.dance_party_activated
+    state: 'off'
+  action:
+  - service: script.platform_one_unoccupied
+    data: {}
+  mode: single
+- id: '3657397913825'
+  alias: Platform Two Occupied
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.platform_2_voltage
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    below: '2.6'
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_two_occupied
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.platform_two_occupied
+  mode: single
+- id: '3657398180243'
+  alias: Platform Two Unoccupied
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.platform_2_voltage
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    above: '2.9'
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_two_occupied
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.platform_two_occupied
+  mode: single
+- id: '3657398331202'
+  alias: Platform Two Toggle On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_two_occupied
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: timer.recharging
+    state: idle
+  action:
+  - service: script.platform_two_occupied
+    data: {}
+  mode: single
+- id: '3657398378429'
+  alias: Platform Two Toggle Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_two_occupied
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.dance_party_activated
+    state: 'off'
+  action:
+  - service: script.platform_two_unoccupied
+    data: {}
+  mode: single
+- id: '4657397913825'
+  alias: Platform Three Occupied
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.platform_3_voltage
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    below: '2.6'
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_three_occupied
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.platform_three_occupied
+  mode: single
+- id: '4657398180243'
+  alias: Platform Three Unoccupied
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.platform_3_voltage
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    above: '2.9'
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_three_occupied
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.platform_three_occupied
+  mode: single
+- id: '4657398331202'
+  alias: Platform Three Toggle On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_three_occupied
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: timer.recharging
+    state: idle
+  action:
+  - service: script.platform_three_occupied
+    data: {}
+  mode: single
+- id: '4657398378429'
+  alias: Platform Three Toggle Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_three_occupied
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.dance_party_activated
+    state: 'off'
+  action:
+  - service: script.platform_three_unoccupied
+    data: {}
+  mode: single
+- id: '1657419925157'
+  alias: Activate Dance Party (Boolean)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_one_occupied
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  - platform: state
+    entity_id:
+    - input_boolean.platform_two_occupied
+    to: 'on'
+  - platform: state
+    entity_id:
+    - input_boolean.platform_three_occupied
+    to: 'on'
+  - platform: state
+    entity_id:
+    - input_boolean.platform_four_occupied
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.platform_four_occupied
+      state: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+    - condition: state
+      entity_id: input_boolean.platform_three_occupied
+      state: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+    - condition: state
+      entity_id: input_boolean.platform_two_occupied
+      state: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+    - condition: state
+      entity_id: input_boolean.platform_one_occupied
+      state: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+    - condition: state
+      entity_id: input_boolean.dance_party_activated
+      state: 'off'
+  action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.dance_party_activated
+  mode: single
+- id: '1657420408245'
+  alias: Dance Party Activation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.dance_party_activated
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 0
+    target:
+      entity_id: light.time_machine_arches
+  - service: select.select_option
+    data:
+      option: dance1
+    target:
+      entity_id: select.wled_preset
+  - service: light.turn_on
+    data:
+      effect: Twinkle
+    target:
+      entity_id:
+      - light.platform_1_led
+      - light.platform_2_led
+      - light.platform_3_led
+      - light.platform_4_led
+  - service: shell_command.dancedance
+    data: {}
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.activating_party
+  - service: light.turn_on
+    data:
+      effect: spin cycle
+      brightness_pct: 100
+    target:
+      entity_id: light.time_machine_arches
+  mode: single
+- id: '1657420691199'
+  alias: Dance No More!
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.dance_party_activated
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.badge_all_on_solid
+    metadata: {}
+  - service: light.turn_on
+    data:
+      effect: Scan
+    target:
+      entity_id:
+      - light.platform_1_led
+      - light.platform_2_led
+      - light.platform_3_led
+      - light.platform_4_led
+  - service: script.resting_time_machine
+    data: {}
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.platform_four_occupied
+      - input_boolean.platform_one_occupied
+      - input_boolean.platform_three_occupied
+      - input_boolean.platform_two_occupied
+  - service: scene.turn_on
+    target:
+      entity_id: scene.badge_reset
+    metadata: {}
+  mode: single
+- id: '1657422796154'
+  alias: Resting
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /6
+  condition:
+  - condition: state
+    entity_id: input_boolean.dance_party_activated
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  - condition: state
+    entity_id: input_boolean.dance_party_active
+    state: 'off'
+  - condition: state
+    entity_id: timer.recharging
+    state: idle
+  action:
+  - service: shell_command.tm_resting
+    data: {}
+  - service: script.resting_time_machine
+    data: {}
+  mode: single
+- id: '1657485134915'
+  alias: Nothing Happening
+  description: Reset Badges
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_one_occupied
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - platform: state
+    entity_id:
+    - input_boolean.platform_two_occupied
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - platform: state
+    entity_id:
+    - input_boolean.platform_three_occupied
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - platform: state
+    entity_id:
+    - input_boolean.platform_four_occupied
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_one_occupied
+    state: 'off'
+  - condition: state
+    entity_id: input_boolean.platform_two_occupied
+    state: 'off'
+  - condition: state
+    entity_id: input_boolean.platform_three_occupied
+    state: 'off'
+  - condition: state
+    entity_id: input_boolean.platform_four_occupied
+    state: 'off'
+  action: []
+  mode: single
+- id: '1657487634791'
+  alias: Set Dance Party
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: set-dance-party
+  condition: []
+  action:
+  - service: input_text.set_value
+    data:
+      value: '{{ trigger.data.dance_party }}'
+    target:
+      entity_id: input_text.current_dance_party
+  mode: single
+- id: '1657488420403'
+  alias: Activate Actual Dance Party
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: activate-dance-party
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.dance_party_active
+  - service: script.dance_arches
+    data: {}
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.activating_party
+  - service: light.turn_on
+    data:
+      effect: Strobe
+    target:
+      entity_id:
+      - light.platform_1_led
+      - light.platform_2_led
+      - light.platform_3_led
+      - light.platform_4_led
+  - service: select.select_option
+    data:
+      option: dance2
+    target:
+      entity_id: select.wled_preset
+  mode: single
+- id: '1657488445882'
+  alias: Deactivate Dance
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: deactivate-dance-party
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.dance_party_active
+      - input_boolean.dance_party_activated
+  mode: single
+- id: '1657489962472'
+  alias: Dance Party Over
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.dance_party_active
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition: []
+  action:
+  - service: select.select_option
+    data:
+      option: allcolors
+    target:
+      entity_id: select.wled_preset
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.platform_four_occupied
+      - input_boolean.platform_one_occupied
+      - input_boolean.platform_three_occupied
+      - input_boolean.platform_four_occupied
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.platform_two_occupied
+      - input_boolean.platform_three_occupied
+      - input_boolean.platform_four_occupied
+      - input_boolean.platform_four_occupied
+  - service: timer.start
+    data: {}
+    target:
+      entity_id: timer.recharging
+  mode: single
+- id: '1657504126271'
+  alias: Platform Four Toggle On (Recharging)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_four_occupied
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: timer.recharging
+    state: active
+  action:
+  - service: light.turn_on
+    data:
+      effect: Slow Pulse
+      brightness_pct: 100
+    target:
+      entity_id: light.platform_4_led
+  - service: shell_command.tm_recharging
+    data: {}
+  mode: single
+- id: '1657504589508'
+  alias: Recharge Start
+  description: ''
+  trigger:
+  - platform: event
+    event_type: timer.started
+    event_data:
+      entity_id: timer.recharging
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      effect: KITT
+    target:
+      entity_id: light.time_machine_arches
+  mode: single
+- id: '1657504630549'
+  alias: Recharge End
+  description: ''
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.recharging
+  condition: []
+  action:
+  - service: script.resting_time_machine
+    data: {}
+  mode: single
+- id: '1657505877099'
+  alias: Platform Three Toggle On (Recharging)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_three_occupied
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: timer.recharging
+    state: active
+  action:
+  - service: light.turn_on
+    data:
+      effect: Slow Pulse
+      brightness_pct: 100
+    target:
+      entity_id: light.platform_4_led
+  - service: shell_command.tm_recharging
+    data: {}
+  mode: single
+- id: '1657505904931'
+  alias: Platform Two Toggle On (Recharging)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_two_occupied
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: timer.recharging
+    state: active
+  action:
+  - service: light.turn_on
+    data:
+      effect: Slow Pulse
+      brightness_pct: 100
+    target:
+      entity_id: light.platform_4_led
+  - service: shell_command.tm_recharging
+    data: {}
+  mode: single
+- id: '1657505927675'
+  alias: Platform One Toggle On (Recharging)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.platform_one_occupied
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: timer.recharging
+    state: active
+  action:
+  - service: light.turn_on
+    data:
+      effect: Slow Pulse
+      brightness_pct: 100
+    target:
+      entity_id: light.platform_4_led
+  - service: shell_command.tm_recharging
+    data: {}
+  mode: single
+- id: '1657514751114'
+  alias: Something Unavailable
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.platform_1_voltage
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  - platform: state
+    entity_id:
+    - sensor.platform_2_voltage
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  - platform: state
+    entity_id:
+    - sensor.platform_3_voltage
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  - platform: state
+    entity_id:
+    - sensor.platform_4_voltage
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  - platform: state
+    entity_id:
+    - select.wled_playlist
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  - platform: state
+    entity_id:
+    - binary_sensor.mac_mini
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.b0rked
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.main_power
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.main_power
+  mode: single
+- id: '1657593840973'
+  alias: Check Badge Lights (SQ)
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /2
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_four_occupied
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 0
+    target:
+      entity_id: light.square_badge
+  mode: single
+- id: '1657593868148'
+  alias: Check Badge Lights (X)
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /2
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_one_occupied
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 0
+    target:
+      entity_id: light.cross_badge
+  mode: single
+- id: '1657593904416'
+  alias: Check Badge Lights (TR)
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /2
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_two_occupied
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 0
+    target:
+      entity_id: light.triangle_badge
+  mode: single
+- id: '1657593931444'
+  alias: Check Badge Lights (O)
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /2
+  condition:
+  - condition: state
+    entity_id: input_boolean.platform_three_occupied
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 0
+    target:
+      entity_id: light.circle_badge
+  mode: single
+- id: '1657595684456'
+  alias: On Home Assistant Start
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.b0rked
+  - service: select.select_option
+    data:
+      option: allcolors
+    target:
+      entity_id: select.wled_preset
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: select.select_option
+    data:
+      option: dance1
+    target:
+      entity_id: select.wled_preset
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: select.select_option
+    data:
+      option: dance2
+    target:
+      entity_id: select.wled_preset
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: select.select_option
+    data:
+      option: allcolors
+    target:
+      entity_id: select.wled_preset
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.platform_one_occupied
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.platform_one_occupied
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.platform_two_occupied
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.platform_two_occupied
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.platform_three_occupied
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.platform_three_occupied
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.platform_four_occupied
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 999
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.platform_four_occupied
+  - service: script.resting_time_machine
+    data: {}
+  mode: single
+- id: '1657644111504'
+  alias: Unbreak TM
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /2
+  condition:
+  - condition: state
+    entity_id: input_boolean.b0rked
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.b0rked
+  - service: shell_command.tm_resting
+    data: {}
+  - service: script.resting_time_machine
+    data: {}
+  mode: single
+- id: '1657644400803'
+  alias: Broken TM Sounds
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.b0rked
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition: []
+  action:
+  - service: shell_command.tm_broken
+    data: {}
+  - service: light.turn_on
+    data:
+      effect: KITT
+    target:
+      entity_id: light.time_machine_arches
+  mode: single
