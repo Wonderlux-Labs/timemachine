@@ -1,0 +1,180 @@
+resting_time_machine:
+  alias: Resting Time Machine Lights
+  sequence:
+  - service: light.turn_on
+    data:
+      effect: '{{ [ "firework dust", "sparks", "slow color shift", "sound - blinkfade",
+        "opposites", "sparks center", "sound - rays"] | random }}'
+    target:
+      entity_id: light.time_machine_arches
+  mode: single
+dance_arches:
+  alias: Dance Arches
+  sequence:
+  - service: light.turn_on
+    data:
+      effect: '{{ [ "sound - blinkfade", "sound - rays", "sound - spectro kalidastrip",
+        "sound - spectomatrix optim"] | random }}'
+    target:
+      entity_id: light.time_machine_arches
+  mode: single
+platform_one_unoccupied:
+  alias: Platform One Unoccupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 70
+      effect: Scan
+    target:
+      entity_id: light.platform_1_led
+  - service: light.turn_on
+    data:
+      transition: 0.5
+      brightness_pct: 0
+      effect: Solid
+    target:
+      entity_id: light.cross_badge
+  mode: single
+platform_two_unoccupied:
+  alias: Platform Two Unoccupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 70
+      effect: Scan
+    target:
+      entity_id: light.platform_2_led
+  - service: light.turn_on
+    target:
+      entity_id: light.triangle_badge
+    data:
+      transition: 0.5
+      brightness_pct: 0
+      effect: Solid
+  mode: single
+platform_three_unoccupied:
+  alias: Platform Three Unoccupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 70
+      effect: Scan
+    target:
+      entity_id: light.platform_3_led
+  - service: light.turn_on
+    data:
+      transition: 0.5
+      brightness_pct: 0
+      effect: Solid
+    target:
+      entity_id: light.circle_badge
+  mode: single
+platform_four_unoccupied:
+  alias: Platform Four Unoccupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 70
+      effect: Scan
+    target:
+      entity_id: light.platform_4_led
+  - service: light.turn_on
+    data:
+      transition: 0.5
+      brightness_pct: 0
+      effect: Solid
+    target:
+      entity_id: light.square_badge
+  mode: single
+platform_one_occupied:
+  alias: Platform One Occupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 100
+      effect: Fast Pulse
+    target:
+      entity_id: light.platform_1_led
+  - service: shell_command.activate_platform
+    data: {}
+  - service: light.turn_on
+    data:
+      transition: 1
+      brightness_pct: 100
+      rgb_color:
+      - 255
+      - 128
+      - 2
+      effect: Solid
+    target:
+      entity_id: light.cross_badge
+  mode: single
+platform_two_occupied:
+  alias: Platform Two Occupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 100
+      effect: Fast Pulse
+    target:
+      entity_id: light.platform_2_led
+  - service: shell_command.activate_platform
+    data: {}
+  - service: light.turn_on
+    data:
+      transition: 1
+      brightness_pct: 100
+      rgb_color:
+      - 255
+      - 0
+      - 217
+      effect: Solid
+    target:
+      entity_id: light.triangle_badge
+  mode: single
+platform_three_occupied:
+  alias: Platform Three Occupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 100
+      effect: Fast Pulse
+    target:
+      entity_id: light.platform_3_led
+  - service: shell_command.activate_platform
+    data: {}
+  - service: light.turn_on
+    data:
+      transition: 1
+      brightness_pct: 100
+      rgb_color:
+      - 242
+      - 255
+      - 0
+      effect: Solid
+    target:
+      entity_id: light.circle_badge
+  mode: single
+platform_four_occupied:
+  alias: Platform Four Occupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 100
+      effect: Fast Pulse
+    target:
+      entity_id: light.platform_4_led
+  - service: shell_command.activate_platform
+    data: {}
+  - service: light.turn_on
+    data:
+      transition: 1
+      brightness_pct: 100
+      rgb_color:
+      - 0
+      - 255
+      - 34
+      effect: Solid
+    target:
+      entity_id: light.square_badge
+  mode: single
