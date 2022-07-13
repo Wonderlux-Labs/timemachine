@@ -178,3 +178,14 @@ platform_four_occupied:
     target:
       entity_id: light.square_badge
   mode: single
+projector_2:
+  alias: Projector 2
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.tmprojleft
+    data:
+      media_content_id: /storage/videos/{{states('input_text.current_dance_party')}}.mp4
+      media_content_type: file
+    metadata: {}
+  mode: single

@@ -8,7 +8,7 @@
       hours: 0
       minutes: 0
       seconds: 1
-    below: '2.6'
+    below: '1.9'
   condition:
   - condition: state
     entity_id: input_boolean.platform_four_occupied
@@ -53,6 +53,13 @@
   - condition: state
     entity_id: timer.recharging
     state: idle
+  - condition: state
+    entity_id: input_boolean.dance_party_active
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
   action:
   - service: script.platform_four_occupied
     data: {}
@@ -84,7 +91,7 @@
       hours: 0
       minutes: 0
       seconds: 1
-    below: '2.6'
+    below: '1.9'
   condition:
   - condition: state
     entity_id: input_boolean.platform_one_occupied
@@ -129,6 +136,13 @@
   - condition: state
     entity_id: timer.recharging
     state: idle
+  - condition: state
+    entity_id: input_boolean.dance_party_active
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
   action:
   - service: script.platform_one_occupied
     data: {}
@@ -160,7 +174,7 @@
       hours: 0
       minutes: 0
       seconds: 1
-    below: '2.6'
+    below: '1.9'
   condition:
   - condition: state
     entity_id: input_boolean.platform_two_occupied
@@ -205,6 +219,13 @@
   - condition: state
     entity_id: timer.recharging
     state: idle
+  - condition: state
+    entity_id: input_boolean.dance_party_active
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
   action:
   - service: script.platform_two_occupied
     data: {}
@@ -236,7 +257,7 @@
       hours: 0
       minutes: 0
       seconds: 1
-    below: '2.6'
+    below: '1.9'
   condition:
   - condition: state
     entity_id: input_boolean.platform_three_occupied
@@ -257,7 +278,7 @@
       hours: 0
       minutes: 0
       seconds: 1
-    above: '2.9'
+    above: '2.6'
   condition:
   - condition: state
     entity_id: input_boolean.platform_three_occupied
@@ -281,6 +302,13 @@
   - condition: state
     entity_id: timer.recharging
     state: idle
+  - condition: state
+    entity_id: input_boolean.dance_party_active
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
   action:
   - service: script.platform_three_occupied
     data: {}
@@ -454,11 +482,11 @@
     metadata: {}
   mode: single
 - id: '1657422796154'
-  alias: Resting
+  alias: Resting Sounds
   description: ''
   trigger:
   - platform: time_pattern
-    minutes: /6
+    minutes: /2
   condition:
   - condition: state
     entity_id: input_boolean.dance_party_activated
@@ -475,8 +503,6 @@
     state: idle
   action:
   - service: shell_command.tm_resting
-    data: {}
-  - service: script.resting_time_machine
     data: {}
   mode: single
 - id: '1657485134915'
@@ -528,7 +554,25 @@
   - condition: state
     entity_id: input_boolean.platform_four_occupied
     state: 'off'
-  action: []
+  action:
+  - service: select.select_option
+    data:
+      option: allcolors
+    target:
+      entity_id: select.wled_playlist
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: script.platform_three_unoccupied
+    data: {}
+  - service: script.platform_two_unoccupied
+    data: {}
+  - service: script.platform_one_unoccupied
+    data: {}
+  - service: script.platform_four_unoccupied
+    data: {}
   mode: single
 - id: '1657487634791'
   alias: Set Dance Party
@@ -558,6 +602,8 @@
       entity_id: input_boolean.dance_party_active
   - service: script.dance_arches
     data: {}
+  - service: script.projector_2
+    data: {}
   - service: switch.turn_off
     data: {}
     target:
@@ -576,6 +622,8 @@
       option: dance2
     target:
       entity_id: select.wled_preset
+  - service: script.projector_2
+    data: {}
   mode: single
 - id: '1657488445882'
   alias: Deactivate Dance
@@ -609,30 +657,36 @@
   action:
   - service: select.select_option
     data:
-      option: allcolors
+      option: dance1
     target:
       entity_id: select.wled_preset
-  - service: input_boolean.turn_off
-    data: {}
-    target:
-      entity_id:
-      - input_boolean.platform_four_occupied
-      - input_boolean.platform_one_occupied
-      - input_boolean.platform_three_occupied
-      - input_boolean.platform_four_occupied
   - delay:
       hours: 0
       minutes: 0
-      seconds: 1
+      seconds: 2
       milliseconds: 0
-  - service: input_boolean.turn_off
+  - service: select.select_option
+    data:
+      option: allcolors
+    target:
+      entity_id: select.wled_preset
+  - service: media_player.media_stop
     data: {}
     target:
-      entity_id:
-      - input_boolean.platform_two_occupied
-      - input_boolean.platform_three_occupied
-      - input_boolean.platform_four_occupied
-      - input_boolean.platform_four_occupied
+      entity_id: media_player.tmprojleft
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  - service: script.platform_one_unoccupied
+    data: {}
+  - service: script.platform_two_unoccupied
+    data: {}
+  - service: script.platform_three_unoccupied
+    data: {}
+  - service: script.platform_four_unoccupied
+    data: {}
   - service: timer.start
     data: {}
     target:
@@ -688,6 +742,24 @@
   condition: []
   action:
   - service: script.resting_time_machine
+    data: {}
+  - service: select.select_option
+    data:
+      option: allcolors
+    target:
+      entity_id: select.wled_preset
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  - service: script.platform_one_unoccupied
+    data: {}
+  - service: script.platform_two_unoccupied
+    data: {}
+  - service: script.platform_three_unoccupied
+    data: {}
+  - service: script.platform_four_unoccupied
     data: {}
   mode: single
 - id: '1657505877099'
@@ -1077,4 +1149,75 @@
       effect: KITT
     target:
       entity_id: light.time_machine_arches
+  mode: single
+- id: '1657662824479'
+  alias: Dance Party Off if Stuck
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.dance_party_active
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.dance_party_activated
+      - input_boolean.dance_party_active
+  - service: shell_command.reboot
+    data: {}
+  mode: single
+- id: '1657666841426'
+  alias: Resting Lights
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /6
+  condition:
+  - condition: state
+    entity_id: input_boolean.dance_party_activated
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  - condition: state
+    entity_id: input_boolean.dance_party_active
+    state: 'off'
+  - condition: state
+    entity_id: timer.recharging
+    state: idle
+  action:
+  - service: script.resting_time_machine
+    data: {}
+  mode: single
+- id: '1657696340525'
+  alias: Loop Projector 2
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.tmprojleft
+    to: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+  condition:
+  - condition: state
+    entity_id: input_boolean.dance_party_active
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  action:
+  - service: script.projector_2
+    data: {}
   mode: single
