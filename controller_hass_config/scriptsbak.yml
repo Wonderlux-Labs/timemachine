@@ -1,0 +1,298 @@
+dance_arches:
+  alias: Dance Arches
+  sequence:
+  - service: light.turn_on
+    data:
+      effect: '{{ [ "sound - blinkfade", "sound - rays", "sound - spectro kalidastrip",
+        "soundspectrum1", "soundspectrum2", "soundseq1" "sound1", "sound2", "sound3"]
+        | random }}'
+    target:
+      entity_id: light.time_machine_arches
+  - service: select.select_option
+    data:
+      option: '{{ [ "bluetwinkle", "danceparty1", "colorful", "rainbowheart"] | random
+        }}'
+    target:
+      entity_id:
+      - select.wled_preset
+  - service: light.turn_on
+    data:
+      transition: 5
+      brightness_pct: 0
+    target:
+      entity_id: light.badge_lights
+  - service: light.turn_on
+    data:
+      transition: 5
+      brightness_pct: 100
+    target:
+      entity_id: light.badge_lights
+  mode: single
+platform_one_unoccupied:
+  alias: Platform One Unoccupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 255
+      effect: Scan
+    target:
+      entity_id: light.platform_1_led
+  - service: light.turn_on
+    data:
+      transition: 0.5
+      brightness_pct: 0
+      effect: Solid
+    target:
+      entity_id: light.cross_badge
+  mode: single
+platform_two_unoccupied:
+  alias: Platform Two Unoccupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 255
+      effect: Scan
+    target:
+      entity_id: light.platform_2_led
+  - service: light.turn_on
+    target:
+      entity_id: light.triangle_badge
+    data:
+      transition: 0.5
+      brightness_pct: 0
+      effect: Solid
+  mode: single
+platform_three_unoccupied:
+  alias: Platform Three Unoccupied
+  sequence:
+  - service: light.turn_on
+    data:
+      effect: Scan
+      brightness_pct: 100
+    target:
+      entity_id: light.platform_3_led
+  - service: light.turn_on
+    data:
+      transition: 0.5
+      brightness_pct: 0
+      effect: Solid
+    target:
+      entity_id: light.circle_badge
+  mode: single
+platform_four_unoccupied:
+  alias: Platform Four Unoccupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 255
+      effect: Scan
+    target:
+      entity_id: light.platform_4_led
+  - service: light.turn_on
+    data:
+      transition: 0.5
+      brightness_pct: 0
+      effect: Solid
+    target:
+      entity_id: light.square_badge
+  mode: single
+platform_one_occupied:
+  alias: Platform One Occupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 100
+      effect: Fast Pulse
+    target:
+      entity_id: light.platform_1_led
+  - service: shell_command.activate_platform
+    data: {}
+  - service: light.turn_on
+    data:
+      transition: 1
+      brightness_pct: 100
+      rgb_color:
+      - 255
+      - 128
+      - 2
+      effect: Solid
+    target:
+      entity_id: light.cross_badge
+  mode: single
+platform_two_occupied:
+  alias: Platform Two Occupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 255
+      effect: Fast Pulse
+    target:
+      entity_id: light.platform_2_led
+  - service: shell_command.activate_platform
+    data: {}
+  - service: light.turn_on
+    data:
+      transition: 1
+      brightness_pct: 100
+      rgb_color:
+      - 255
+      - 0
+      - 217
+      effect: Solid
+    target:
+      entity_id: light.triangle_badge
+  mode: single
+platform_three_occupied:
+  alias: Platform Three Occupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 255
+      effect: Fast Pulse
+    target:
+      entity_id: light.platform_3_led
+  - service: shell_command.activate_platform
+    data: {}
+  - service: light.turn_on
+    data:
+      transition: 1
+      brightness_pct: 100
+      rgb_color:
+      - 242
+      - 255
+      - 0
+      effect: Solid
+    target:
+      entity_id: light.circle_badge
+  mode: single
+platform_four_occupied:
+  alias: Platform Four Occupied
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness: 255
+      effect: Fast Pulse
+    target:
+      entity_id: light.platform_4_led
+  - service: shell_command.activate_platform
+    data: {}
+  - service: light.turn_on
+    data:
+      transition: 1
+      brightness_pct: 100
+      rgb_color:
+      - 0
+      - 255
+      - 34
+      effect: Solid
+    target:
+      entity_id: light.square_badge
+  mode: single
+projector_2:
+  alias: Projector 2
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.tmprojleft
+    data:
+      media_content_id: /storage/videos/{{states('input_text.current_dance_party')}}.mp4
+      media_content_type: file
+    metadata: {}
+  mode: single
+flood_random_color:
+  alias: Flood Random Color
+  sequence:
+  - service: light.turn_on
+    data_template:
+      entity_id: '{{ states.light.flood_lights.attributes.entity_id | random }}'
+      brightness: '{{ range(150, 255)|random|int }}'
+      color_name: '{{ [''blue'',''hotpink'',''magenta'',''indigo'',''deeppink'', ''orange'',''greenyellow'',
+        ''blueviolet'', ''darkviolet'', ''purple'', ''lime'', ''yellow'', ''goldenrod'',
+        ''gold'']|random }}'
+  mode: single
+dance_arches_2:
+  alias: Dance Arches Specific
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_text.dance_lights
+        state: rave
+      sequence:
+      - service: script.dance_arches_rave
+        data: {}
+    - conditions:
+      - condition: state
+        entity_id: input_text.dance_lights
+        state: gentle
+      sequence:
+      - service: script.dance_arches_gentle
+        data: {}
+    - conditions:
+      - condition: state
+        entity_id: input_text.dance_lights
+        state: weird
+      sequence:
+      - service: script.dance_arches_weird
+        data: {}
+    default:
+    - service: script.dance_arches
+      data: {}
+  mode: single
+dance_arches_rave:
+  alias: Dance Arches (Rave)
+  sequence:
+  - service: light.turn_on
+    data:
+      effect: '{{ [ "sound - blinkfade", "sound - rays", "sound - spectro kalidastrip",
+        "soundspectrum1", "soundspectrum2", "soundseq1" "sound1", "sound2", "sound3"]
+        | random }}'
+    target:
+      entity_id: light.time_machine_arches
+  mode: single
+dance_arches_gentle:
+  alias: Dance Arches (Gentle)
+  sequence:
+  - service: light.turn_on
+    data:
+      effect: '{{ [ "sound - blinkfade", "sound - rays", "sound - spectro kalidastrip",
+        "soundspectrum1", "soundspectrum2", "soundseq1" "sound1", "sound2", "sound3"]
+        | random }}'
+    target:
+      entity_id: light.time_machine_arches
+  mode: single
+dance_arches_weird:
+  alias: Dance Arches (Weird)
+  sequence:
+  - service: light.turn_on
+    data:
+      effect: '{{ [ "sound - blinkfade", "sound - rays", "sound - spectro kalidastrip",
+        "soundspectrum1", "soundspectrum2", "soundseq1" "sound1", "sound2", "sound3"]
+        | random }}'
+    target:
+      entity_id: light.time_machine_arches
+  mode: single
+resting_time_machine_lights:
+  alias: Resting Time Machine Lights
+  sequence:
+  - service: light.turn_on
+    data:
+      effect: '{{ [ "resting1", "resting2", "resting3", "resting4", "resting5" "resting6",
+        "resting7", "resting8", "resting9", "resting10", "resting11", "resting12",
+        "resting13", "resting14", "resting15" "resting16", "resting16", "resting17",
+        "resting18"] | random }}'
+      brightness_pct: '{{range(60, 80)|random|float}}'
+    target:
+      entity_id: light.time_machine_arches
+  mode: single
+activation_tm_lights:
+  alias: Activation TM Lights
+  sequence:
+  - service: light.turn_on
+    data:
+      effect: '{{ [ "activate1", "activate2", "activate3", "activate4", "activate5"
+        "resting6"] | random }}'
+      brightness_pct: '{{range(75, 95)|random|float}}'
+    target:
+      entity_id: light.time_machine_arches
+  mode: single

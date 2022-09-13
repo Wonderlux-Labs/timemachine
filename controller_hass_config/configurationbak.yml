@@ -1,0 +1,103 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+sensor:
+  - platform: rest
+    name: "Time of Day"
+    resource: http://192.168.0.101:4567/time
+    value_template: "{{ value_json.time }}"
+    scan_interval: 300
+  - platform: statistics
+    name: "Platform 1 Change"
+    entity_id: sensor.platform_1_voltage
+    state_characteristic: change
+  - platform: statistics
+    name: "Platform 2 Change"
+    entity_id: sensor.platform_2_voltage
+    state_characteristic: change
+  - platform: statistics
+    name: "Platform 3 Change"
+    entity_id: sensor.platform_3_voltage
+    state_characteristic: change
+  - platform: statistics
+    name: "Platform 4 Change"
+    entity_id: sensor.platform_4_voltage
+    state_characteristic: change
+  - platform: systemmonitor
+    resources:
+      - type: disk_use
+      - type: disk_free
+      - type: ipv4_address
+        arg: eth0
+      - type: processor_use
+      - type: processor_temperature
+      - type: last_boot
+
+binary_sensor:
+  - platform: command_line
+    name: 'TM Sinatra'
+    command: curl 192.168.0.101:4567 > /dev/null && echo on || echo off
+    scan_interval: 180
+    payload_on: "on"
+    payload_off: "off"
+  - platform: ping
+    name: mac mini
+    host: 192.168.0.101
+    count: 2
+    scan_interval: 120
+  - platform: ping
+    name: router
+    host: 192.168.0.1
+    count: 2
+    scan_interval: 120
+  - platform: ping
+    name: projection mapper
+    host: 192.168.0.133
+    count: 2
+    scan_interval: 180
+  - platform: trend
+    sensors:
+      platform_one_trend:
+        entity_id: sensor.platform_1_voltage
+        min_gradient: 0.8
+  - platform: trend
+    sensors:
+      platform_two_trend:
+        entity_id: sensor.platform_2_voltage
+        min_gradient: 0.8
+  - platform: trend
+    sensors:
+      platform_three_trend:
+        entity_id: sensor.platform_3_voltage
+        min_gradient: 0.8
+  - platform: trend
+    sensors:
+      platform_four_trend:
+        entity_id: sensor.platform_4_voltage
+        min_gradient: 0.8
+recorder:
+  purge_keep_days: 31
+  exclude:
+    domains:
+      - automation
+      - updater
+    entities:
+      - sun.sun # Don't record sun data
+      - sensor.date
+
+shell_command:
+  tm_resting: curl http://192.168.0.101:4567/resting
+  activate_platform: curl http://192.168.0.101:4567/platform-on
+  platform_off: curl http://192.168.0.101:4567/platform-off
+  dancedance: curl http://192.168.0.101:4567/dance
+  tm_recharging: curl http://192.168.0.101:4567/recharging
+  tm_broken: curl http://192.168.0.101:4567/restarting
+  reboot: curl http://192.168.0.101:4567/reboot
+  audio_efx_on: curl http://192.168.0.101:4567/audio_efx_on
+  audio_efx_off: curl http://192.168.0.101:4567/audio_efx_off
+  mapper_slide_change: curl http://192.168.0.101:4567/change_slide
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
